@@ -237,6 +237,11 @@ static int get_man_paths(cz::Allocator path_allocator,
 
 int main(int argc, char** argv) {
     if (argc == 1) {
+        fprintf(stderr, "Usage: %s <PAGE>\n", argv[0]);
+        fprintf(stderr, "   or: %s <PAGE>.<SECTION>\n", argv[0]);
+        fprintf(stderr, "\n");
+        fprintf(stderr, "Example 1: %s read\n", argv[0]);
+        fprintf(stderr, "Example 2: %s read.2\n", argv[0]);
         return 1;
     }
 
@@ -267,7 +272,7 @@ int main(int argc, char** argv) {
     lookup_man_page(man_paths, man_page, &results, results_buffer_array.allocator(), &context);
 
     if (results.len() == 0) {
-        fprintf(stderr, "No results\n");
+        fprintf(stderr, "Error: No results\n");
         return 1;
     }
 
