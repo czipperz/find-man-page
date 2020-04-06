@@ -7,7 +7,7 @@
 #include <cz/heap.hpp>
 #include <cz/str.hpp>
 #include <cz/string.hpp>
-#include <string>
+#include "lookup_context.cpp"
 
 static int decompress_gz(FILE* file, cz::String* out, cz::Allocator out_allocator) {
     z_stream stream;
@@ -56,19 +56,6 @@ static int decompress_gz(FILE* file, cz::String* out, cz::Allocator out_allocato
         } while (stream.avail_out == 0);
     }
 }
-
-struct Lookup_Context {
-    cz::Buffer_Array local_results_buffer_array;
-    cz::String directory;
-    cz::Vector<cz::Str> files;
-
-    void create() { local_results_buffer_array.create(); }
-    void drop() {
-        local_results_buffer_array.drop();
-        directory.drop(cz::heap_allocator());
-        files.drop(cz::heap_allocator());
-    }
-};
 
 static void add_result(cz::Slice<cz::Str> man_paths,
                        cz::String path,

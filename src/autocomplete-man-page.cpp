@@ -7,20 +7,7 @@
 #include <cz/heap.hpp>
 #include <cz/str.hpp>
 #include <cz/string.hpp>
-#include <string>
-
-struct Lookup_Context {
-    cz::Buffer_Array local_results_buffer_array;
-    cz::String directory;
-    cz::Vector<cz::Str> files;
-
-    void create() { local_results_buffer_array.create(); }
-    void drop() {
-        local_results_buffer_array.drop();
-        directory.drop(cz::heap_allocator());
-        files.drop(cz::heap_allocator());
-    }
-};
+#include "lookup_context.cpp"
 
 static void lookup_man_page(cz::Slice<cz::Str> man_paths, cz::Str man_page) {
     Lookup_Context context = {};
