@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd "$(dirname "$0")"
-./man-x "$@" | groff -Tascii -man | less
+./build/release/load-man-page "$@" | groff -Tascii -man | less
