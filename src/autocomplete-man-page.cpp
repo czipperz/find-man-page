@@ -39,14 +39,10 @@ static void lookup_man_page(cz::Slice<cz::Str> man_paths, cz::Str man_page) {
             for (size_t i = 0; i < context.files.len(); ++i) {
                 cz::Str file = context.files[i];
                 if (file.starts_with(man_page)) {
-                    const char* second_end = file.rfind('.');
-                    if (second_end) {
-                        const char* first_end =
-                            cz::Str{file.buffer, (size_t)(second_end - file.buffer)}.rfind('.');
-                        if (first_end) {
-                            fwrite(file.buffer, 1, first_end - file.buffer, stdout);
-                            putchar('\n');
-                        }
+                    const char* no_extension = file.rfind('.');
+                    if (no_extension) {
+                        fwrite(file.buffer, 1, no_extension - file.buffer, stdout);
+                        putchar('\n');
                     }
                 }
             }
