@@ -58,7 +58,7 @@ static int decompress_gz(FILE* file, cz::String* out, cz::Allocator out_allocato
 }
 
 struct Lookup_Context {
-    cz::BufferArray local_results_buffer_array;
+    cz::Buffer_Array local_results_buffer_array;
     cz::String directory;
     cz::Vector<cz::Str> files;
 
@@ -175,7 +175,7 @@ static int load_contents(const char* file_name, cz::String* contents, cz::Alloca
 
 static int dereference_links(cz::Slice<cz::Str> man_paths,
                              cz::Vector<cz::Str>* results,
-                             cz::BufferArray* results_buffer_array,
+                             cz::Buffer_Array* results_buffer_array,
                              cz::String* contents,
                              Lookup_Context* context) {
     while (contents->starts_with(".so ")) {
@@ -245,7 +245,7 @@ int main(int argc, char** argv) {
     cz::Vector<cz::Str> man_paths = {};
     CZ_DEFER(man_paths.drop(cz::heap_allocator()));
 
-    cz::BufferArray man_paths_buffer_array = {};
+    cz::Buffer_Array man_paths_buffer_array = {};
     man_paths_buffer_array.create();
     CZ_DEFER(man_paths_buffer_array.drop());
 
@@ -253,7 +253,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    cz::BufferArray results_buffer_array = {};
+    cz::Buffer_Array results_buffer_array = {};
     results_buffer_array.create();
     CZ_DEFER(results_buffer_array.drop());
 
